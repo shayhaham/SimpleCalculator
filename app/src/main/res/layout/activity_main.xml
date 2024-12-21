@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="  onBtnClicked"
+    android:onClick="onBtnClicked"
     tools:context=".MainActivity">
 
     <EditText
@@ -96,8 +96,10 @@
         android:id="@+id/tvResult"
         android:layout_width="140dp"
         android:layout_height="54dp"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="515dp" />
+        android:layout_marginTop="32dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDiv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
