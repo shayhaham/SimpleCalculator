@@ -37,24 +37,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void onBtnClicked(View view) {
+        // קריאת ערכים מה-EditText
+        String et1Text = Num1.getText().toString().trim();
+        String et2Text = Num2.getText().toString().trim();
 
-        EditText et1 = findViewById(R.id.Num1);
-        String et1Text = et1.getText().toString();
-        Integer num1 = Integer.valueOf(et1Text);
-        EditText et2 = findViewById(R.id.Num2);
-        String et2Text = et2.getText().toString();
-        Integer num2 = Integer.valueOf(et2Text);
-        Integer result = null;
-        if (view.getId() == R.id.btnPlus)
+        // בדיקה אם הקלט ריק
+        if (et1Text.isEmpty() || et2Text.isEmpty()) {
+            Toast.makeText(this, "Please enter both numbers", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // המרת קלט למספרים
+        int num1 = Integer.parseInt(et1Text);
+        int num2 = Integer.parseInt(et2Text);
+        int result = 0;
+
+        if (view.getId() == R.id.btnPlus) {
             result = num1 + num2;
-        if (view.getId() == R.id.btnMinus)
+        } else if (view.getId() == R.id.btnMinus) {
             result = num1 - num2;
-        if (view.getId() == R.id.btnMult)
+        } else if (view.getId() == R.id.btnMult) {
             result = num1 * num2;
-        if (view.getId() == R.id.btnDiv)
+        } else if (view.getId() == R.id.btnDiv) {
+            if (num2 == 0) {
+                Toast.makeText(this, "Cannot divide by zero", Toast.LENGTH_SHORT).show();
+                return;
+            }
             result = num1 / num2;
-        if (result != null) {
-            TextView tvRes = findViewById(R.id.tvResult);
-            tvRes.setText(result.toString());
-        }   }
+        }
+
+        // הצגת התוצאה ב-TextView
+        tvResult.setText(String.valueOf(result));
+    }
 }
