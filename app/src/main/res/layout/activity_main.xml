@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2AAAA"
     android:onClick="onBtnClicked"
     tools:context=".MainActivity">
 
@@ -97,6 +98,7 @@
         android:layout_width="140dp"
         android:layout_height="54dp"
         android:layout_marginTop="32dp"
+        android:textColor="#064BFB"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
