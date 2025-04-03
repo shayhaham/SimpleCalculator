@@ -57,31 +57,32 @@ public class MainActivity extends AppCompatActivity {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-        if (result.getResultCode() == RESULT_OK){
-            Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-            try{
-                GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
-                AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
-                auth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            auth = FirebaseAuth.getInstance();
-                            Glide.with(MainActivity.this).load(Object.requireNonNull(auth.getCurrentUser().getPhotoUrl()).into(imageView));
-                            name.setText(auth.getCurrentUser().getDisplayName());
-                            mail.setText(auth.getCurrentUser().getEmail());
-                            Toast.makeText(MainActivity.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(MainActivity.this, "Filed to Sign in: "+ task.getException(), Toast.LENGTH_SHORT).show();
+                    if (result.getResultCode() == RESULT_OK) {
+                        Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                        try {
+                            GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
+                            AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+                            auth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        auth = FirebaseAuth.getInstance();
+                                        Glide.with(MainActivity.this).load(Objects.requireNonNull(auth.getCurrentUser()).getPhotoUrl()).into(imageView);
+                                        name.setText(auth.getCurrentUser().getDisplayName());
+                                        mail.setText(auth.getCurrentUser().getEmail());
+                                        Toast.makeText(MainActivity.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "Filed to Sign in: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        } catch (ApiException e) {
+                            e.printStackTrace();
                         }
                     }
-                });
-            } catch (ApiException e) {
-                throw new RuntimeException(e);
-                e.printStackTrace();
-            }
-        }
-    };
+                }
+            });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
     public void onBtnClicked(View view) {
         // קריאת ערכים מה-EditText
         String et1Text = Num1.getText().toString().trim();
